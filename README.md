@@ -44,16 +44,17 @@ The original 2014 build used Code::Blocks + MinGW + `glut32.dll` + `jpeg62.dll`.
   setx VCPKG_ROOT E:\vcpkg
   ```
 
-### Visual Studio (recommended)
+### First time / clean slate
 
-1. **File → Open → Folder...** → select the repo.
-2. VS reads `CMakePresets.json`, runs the `windows-x64` preset, and installs `freeglut` into `build/vcpkg/` on first open.
-3. Pick `computer-graphic-2014.exe` in the startup-item dropdown, then **F5**.
+Run `generate.bat` from a **Visual Studio Developer Command Prompt**. Run it again any time you want a fresh build state.
+
+### Visual Studio
+
+**File → Open → Folder...** → select the repo. Pick `computer-graphic-2014.exe` in the startup-item dropdown, then **F5**.
 
 ### Command line
 
 ```bat
-cmake --preset windows-x64
 cmake --build --preset debug
 cmake --build --preset release
 ```
