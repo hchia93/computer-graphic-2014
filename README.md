@@ -18,7 +18,7 @@ Archived university coursework: a 3D model of **St. Basil's Cathedral** (Moscow,
 │   ├── textures/
 │   └── references/
 ├── doc/                Assignment brief, project report, declaration, marking sheet
-├── out/                All generated build output (gitignored)
+├── build/              All generated build output (gitignored)
 ├── LICENSE             MIT
 └── README.md
 ```
@@ -47,7 +47,7 @@ The original 2014 build used Code::Blocks + MinGW + `glut32.dll` + `jpeg62.dll`.
 ### Visual Studio (recommended)
 
 1. **File → Open → Folder...** → select the repo.
-2. VS reads `CMakePresets.json`, runs the `windows-x64` preset, and installs `freeglut` into `out/vcpkg/` on first open.
+2. VS reads `CMakePresets.json`, runs the `windows-x64` preset, and installs `freeglut` into `build/vcpkg/` on first open.
 3. Pick `computer-graphic-2014.exe` in the startup-item dropdown, then **F5**.
 
 ### Command line
@@ -58,7 +58,7 @@ cmake --build --preset debug
 cmake --build --preset release
 ```
 
-The executable lands at `out/build/windows-x64/bin/<Config>/computer-graphic-2014.exe` next to a copy of `freeglut.dll`.
+The executable lands at `build/windows-x64/bin/<Config>/computer-graphic-2014.exe` next to a copy of `freeglut.dll`.
 
 ## License
 

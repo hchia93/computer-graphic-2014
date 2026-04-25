@@ -10,9 +10,9 @@
 *.lib
 *.a
 
-# All CMake/VS-managed output (binaryDir + VCPKG_INSTALLED_DIR + FETCHCONTENT_BASE_DIR
-# all redirected here via CMakePresets.json)
-/out/
+# All CMake/VS-managed output (binaryDir + VCPKG_INSTALLED_DIR all redirected
+# here via CMakePresets.json)
+/build/
 
 # Visual Studio user files
 *.user

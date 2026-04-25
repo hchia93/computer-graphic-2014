@@ -8,10 +8,10 @@
             "description": "Default preset. VS Open Folder reads this; CLI: cmake --preset windows-x64",
             "generator": "Visual Studio 18 2026",
             "architecture": { "value": "x64", "strategy": "set" },
-            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "VCPKG_INSTALLED_DIR": "${sourceDir}/out/vcpkg"
+                "VCPKG_INSTALLED_DIR": "${sourceDir}/build/vcpkg"
             }
         }
     ],
