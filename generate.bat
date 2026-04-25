@@ -7,7 +7,7 @@ rem
 rem Requirements in the current shell:
 rem   * cmake on PATH       (VS Developer Command Prompt has it bundled,
 rem                          or install CMake standalone)
-rem   * VCPKG_ROOT defined  (one-time: setx VCPKG_ROOT E:\vcpkg)
+rem   * VCPKG_ROOT defined  (one-time: setx VCPKG_ROOT ^<path^>\vcpkg)
 
 setlocal
 pushd "%~dp0"
@@ -22,7 +22,7 @@ if errorlevel 1 (
 
 if not defined VCPKG_ROOT (
     echo [ERROR] VCPKG_ROOT is not set.
-    echo Run once: setx VCPKG_ROOT E:\vcpkg  (then open a new shell^)
+    echo Run once: setx VCPKG_ROOT ^<path^>\vcpkg  (then open a new shell^)
     popd
     exit /b 1
 )

@@ -13,10 +13,22 @@
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "VCPKG_INSTALLED_DIR": "${sourceDir}/build/vcpkg"
             }
+        },
+        {
+            "name": "ci-windows",
+            "displayName": "CI (Ninja Multi-Config)",
+            "description": "Generator-agnostic preset for GitHub Actions",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_INSTALLED_DIR": "${sourceDir}/build/vcpkg"
+            }
         }
     ],
     "buildPresets": [
-        { "name": "debug",   "configurePreset": "windows-x64", "configuration": "Debug" },
-        { "name": "release", "configurePreset": "windows-x64", "configuration": "Release" }
+        { "name": "debug",      "configurePreset": "windows-x64", "configuration": "Debug" },
+        { "name": "release",    "configurePreset": "windows-x64", "configuration": "Release" },
+        { "name": "ci-release", "configurePreset": "ci-windows",  "configuration": "Release" }
     ]
 }

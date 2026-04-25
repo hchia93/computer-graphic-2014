@@ -1,0 +1,72 @@
+name: Build-Windows
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'CMakeLists.txt'
+      - 'CMakePresets.json'
+      - 'vcpkg.json'
+      - '.github/workflows/build-windows.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'CMakeLists.txt'
+      - 'CMakePresets.json'
+      - 'vcpkg.json'
+      - '.github/workflows/build-windows.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Setup VCPKG_ROOT
+        shell: pwsh
+        run: |
+          "VCPKG_ROOT=$env:VCPKG_INSTALLATION_ROOT" | Out-File -Append $env:GITHUB_ENV
+
+      - name: Configure
+        run: cmake --preset ci-windows
+
+      - name: Build (Release)
+        run: cmake --build --preset ci-release
+
+      - name: Stage release package
+        shell: pwsh
+        run: |
+          $stage = "stage"
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item "build/ci-windows/bin/Release/*.exe" $stage -Force
+          Copy-Item "build/ci-windows/bin/Release/*.dll" $stage -Force
+          Get-ChildItem $stage
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64
+          path: stage/
+
+      - name: Zip build output
+        shell: pwsh
+        run: |
+          Compress-Archive -Path stage/* -DestinationPath ComputerGraphic2014_Windows_Release.zip -Force
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Latest Windows Build
+          tag_name: latest-windows
+          files: ComputerGraphic2014_Windows_Release.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
