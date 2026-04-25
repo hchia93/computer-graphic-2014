@@ -7,7 +7,7 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
 ********************************************/
 
 #include <GL/glut.h>
-#include "CGProject.hpp"
+#include "CGProject.h"
 using namespace CGProject;
 
 void ComputeNormal(float A[], float B[],float C[]) //Organized check, done

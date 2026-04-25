@@ -16,6 +16,11 @@ Release/
 x64/
 x86/
 
+# CMake / vcpkg generated build outputs
+bin/Win64/
+generated-vs/
+vcpkg_installed/
+
 # Code::Blocks
 *.cbp
 *.depend

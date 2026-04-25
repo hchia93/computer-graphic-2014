@@ -10,7 +10,7 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
  TGD2151 Computer Graphics Fundamentals
  Faculty of Computing & Informatics, Multimedia University
 
- CGLabmain.hpp
+ CGLabmain.h
 
  Objective: Header File for Main Program (for ALL Labs)
 
@@ -30,8 +30,8 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
  ==========
 */
 
-#ifndef YP_CGLABMAIN_HPP
-#define YP_CGLABMAIN_HPP
+#ifndef YP_CGLABMAIN_H
+#define YP_CGLABMAIN_H
 
 #include <string>
 #include <cmath>
@@ -233,4 +233,4 @@ class MyAxis
     }
 };
 
-#endif //YP_CGLABMAIN_HPP
+#endif //YP_CGLABMAIN_H

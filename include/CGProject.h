@@ -6,9 +6,9 @@ ID and Name #1 : 1131120642 Chia JianFei
 Contacts #1 : 0167634275 hyrex.chia@gmail.com
 ********************************************/
 
-#ifndef CG_PROJ_HPP
-#define CG_PROJ_HPP
-#include "CGLabmain.hpp"
+#ifndef CG_PROJ_H
+#define CG_PROJ_H
+#include "CGLabmain.h"
 
 namespace CGProject
 {

@@ -25,13 +25,13 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
  How to compile and run:
  * For each of the lab, you need the files below:
    a. CGLabmain.cpp => The file you are reading now
-   b. CGLabmain.hpp => Header file to be used with CGLabmain.cpp
+   b. CGLabmain.h => Header file to be used with CGLabmain.cpp
    c. CGLabxx.cpp => Program for lab number 'xx', 'xx' being the lab
                      number such as 01, 03 ... 10, 11
-   d. CGLabxx.hpp => Header file to be used with CGLabxx.cpp
+   d. CGLabxx.h => Header file to be used with CGLabxx.cpp
  * Make sure you are including the correct include file
    in CGLabmain.cpp (this file) such as:
-      #include "CGLabxx.hpp"   where 'xx' is the lab number
+      #include "CGLabxx.h"   where 'xx' is the lab number
  * Make sure gl.h, glu.h and glut.h are in the 'include' path
  * Make sure opengl32.dll, glu32.dll and glut32.dll are in the
    'system32' path
@@ -44,7 +44,7 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
  How to modify:
  * All the user-defined drawing functions are called from
    the draw() function of class MyVirtualWorld which
-   must be declared in CGLabxx.hpp
+   must be declared in CGLabxx.h
  * myvirtualworld is declared in CGLabmain.cpp as an instance
    of class MyVirtualWorld
  * MyVirtualWorld must implement the following member functions:
@@ -56,7 +56,7 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
                     any rendering BUT after OpenGL has been initialized
  * All classes and variables for each lab are defined in their own
    namespace to avoid names clashing of variable and type names.
-   Specifically each CGLabxx.hpp declared and defined a MyVirtualWorld
+   Specifically each CGLabxx.h declared and defined a MyVirtualWorld
    class, thus in CGLabmain.cpp, you need to specify from which
    namespace the MyVirtualWorld that you wish to use. Thus, you will
    need to modify the line (in the beginning of this program):
@@ -88,8 +88,8 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
 #include <cmath>
 #include <GL/glut.h>
 #define MODE 1 /* Change this value 1 = dragon 2 = flower 3 = shutter */
-#include "CGLabmain.hpp"
-#include "CGProject.hpp"
+#include "CGLabmain.h"
+#include "CGProject.h"
 
 using CGProject::MyVirtualWorld;
 

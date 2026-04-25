@@ -1,0 +1,8 @@
+{
+  "name": "computer-graphic-2014",
+  "version": "1.0.0",
+  "description": "St. Basil's Cathedral 3D model rendered with OpenGL fixed pipeline (2014 archive).",
+  "dependencies": [
+    "freeglut"
+  ]
+}
