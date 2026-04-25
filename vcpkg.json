@@ -4,5 +4,6 @@
   "description": "St. Basil's Cathedral 3D model rendered with OpenGL fixed pipeline (2014 archive).",
   "dependencies": [
     "freeglut"
-  ]
+  ],
+  "builtin-baseline": "89dd0f4d241136b843fb55813b2f0fa6448c204d"
 }
