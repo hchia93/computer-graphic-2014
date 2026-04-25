@@ -1,14 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 
-# Resolve vcpkg toolchain. Prefer the in-tree submodule; fall back to VCPKG_ROOT.
-if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    if(EXISTS "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
-        set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake"
-            CACHE STRING "Vcpkg toolchain file")
-    elseif(DEFINED ENV{VCPKG_ROOT})
-        set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-            CACHE STRING "Vcpkg toolchain file")
-    endif()
+# Resolve vcpkg toolchain from VCPKG_ROOT (set globally on the machine).
+# generate.bat ensures VCPKG_ROOT points at a usable vcpkg before invoking CMake.
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE AND DEFINED ENV{VCPKG_ROOT})
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        CACHE STRING "Vcpkg toolchain file")
 endif()
 
 project(computer-graphic-2014 LANGUAGES CXX)
