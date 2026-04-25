@@ -18,16 +18,7 @@ x86/
 
 # CMake / vcpkg generated build outputs
 bin/Win64/
-generated-vs/
 vcpkg_installed/
-
-# Code::Blocks
-*.cbp
-*.depend
-*.layout
-*.cscope_file_list
-*.workspace
-*.workspace.layout
 
 # Visual Studio
 .vs/

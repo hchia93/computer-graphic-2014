@@ -14,12 +14,9 @@ Archived university coursework: a 3D model of **St. Basil's Cathedral** (Moscow,
 ├── vcpkg.json        Manifest of native dependencies
 ├── generate.bat      One-click solution generator (Windows / Visual Studio)
 ├── vcpkg/            vcpkg toolchain (git submodule)
-├── src/              C++ implementation
-├── include/          C++ headers
-├── bin/
-│   ├── Win64/          Build output (gitignored)
-│   ├── legacy/         Original 2014 runtime DLLs (glut32, jpeg62)
-│   └── CGLabs.exe      Original 2014 prebuilt binary (gitignored)
+├── src/              C++ sources and headers
+├── bin/Win64/        Build output (gitignored)
+├── build/            CMake / Visual Studio generated files (gitignored)
 ├── resource/         Reference photos and texture sources
 │   ├── textures/
 │   └── references/
@@ -30,15 +27,15 @@ Archived university coursework: a 3D model of **St. Basil's Cathedral** (Moscow,
 
 ## Tech
 
-- C++17, MSVC (Visual Studio 2022), x64
+- C++17, MSVC (Visual Studio 2017 / 2019 / 2022 / 2026), x64
 - OpenGL fixed-function pipeline
 - [freeglut](https://freeglut.sourceforge.net/) via vcpkg (modern drop-in for the original GLUT 3.7)
 
-The original 2014 build used Code::Blocks + MinGW + `glut32.dll` + `jpeg62.dll`. The legacy DLLs are kept under `bin/legacy/` for reference; the project no longer depends on libjpeg because no texture loading code shipped in the final submission.
+The original 2014 build used Code::Blocks + MinGW + `glut32.dll` + `jpeg62.dll`. The libjpeg dependency has been dropped because no texture loading code shipped in the final submission.
 
 ## Build
 
-Requires Git, Visual Studio 2022 (with the C++ workload), and CMake.
+Requires Git and Visual Studio 2017 or newer (with the C++ workload). The CMake bundled with Visual Studio is used automatically.
 
 ```bat
 git clone --recurse-submodules https://github.com/hchia93/computer-graphic-2014.git
@@ -51,15 +48,15 @@ generate.bat
 1. Initialise the `vcpkg` submodule if needed.
 2. Bootstrap `vcpkg.exe` if missing.
 3. Install manifest dependencies (`freeglut`) for the `x64-windows` triplet.
-4. Generate a Visual Studio 2022 solution under `generated-vs/`.
+4. Generate a Visual Studio solution under `build/` using the generator that matches the detected Visual Studio.
 
 Build the solution from Visual Studio, or from the command line:
 
 ```bat
-cmake --build generated-vs --config Release
+cmake --build build --config Release
 ```
 
-The executable lands at `bin/Win64/computer-graphic-2014.exe` along with its `.pdb`.
+The executable lands at `bin/Win64/computer-graphic-2014.exe`. Debug builds also produce `computer-graphic-2014.pdb`.
 
 ## License
 

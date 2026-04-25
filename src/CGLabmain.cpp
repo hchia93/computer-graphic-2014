@@ -20,26 +20,10 @@ Contacts #1 : 0167634275 hyrex.chia@gmail.com
  (C) 2006-2014 Ya Ping Wong, All Rights Reserved.
  http://wongyaping.com
 
- INSTRUCTIONS
- ============
- How to compile and run:
- * For each of the lab, you need the files below:
-   a. CGLabmain.cpp => The file you are reading now
-   b. CGLabmain.h => Header file to be used with CGLabmain.cpp
-   c. CGLabxx.cpp => Program for lab number 'xx', 'xx' being the lab
-                     number such as 01, 03 ... 10, 11
-   d. CGLabxx.h => Header file to be used with CGLabxx.cpp
- * Make sure you are including the correct include file
-   in CGLabmain.cpp (this file) such as:
-      #include "CGLabxx.h"   where 'xx' is the lab number
- * Make sure gl.h, glu.h and glut.h are in the 'include' path
- * Make sure opengl32.dll, glu32.dll and glut32.dll are in the
-   'system32' path
- * Make sure libopengl32.a, libglu32.a and libglut32.a are in the
-   'lib' path and included in your project file if you are using an IDE
- * To compile using a command line using the GCC, type the command as below:
-      g++ CGLabmain.cpp CGLabxx.cpp -o CGLabxx.exe -lopengl32 -lglu32 -lglut32
-      [replace 'xx' with the lab number such as 01, 03 ... 10, 11]
+ BUILD
+ =====
+ The original Code::Blocks + MinGW build flow has been replaced.
+ See README.md for the current CMake + vcpkg setup.
 
  How to modify:
  * All the user-defined drawing functions are called from

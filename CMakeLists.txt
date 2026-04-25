@@ -35,13 +35,13 @@ set(SOURCES
 )
 
 set(HEADERS
-    include/CGLabmain.h
-    include/CGProject.h
+    src/CGLabmain.h
+    src/CGProject.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
-target_include_directories(${PROJECT_NAME} PRIVATE include)
+target_include_directories(${PROJECT_NAME} PRIVATE src)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     FreeGLUT::freeglut

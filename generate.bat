@@ -38,20 +38,9 @@ if not exist "%VCPKG_EXE%" (
 )
 echo [OK] vcpkg.exe ready
 
-REM 3. Install manifest dependencies
-echo [INFO] Installing manifest dependencies (first run may take several minutes)...
-pushd "%ROOT%"
-"%VCPKG_EXE%" install --triplet=x64-windows
-if errorlevel 1 (
-    echo [ERROR] Dependency install failed
-    popd
-    pause
-    exit /b 1
-)
-popd
-echo [OK] Dependencies installed
-
-REM 4. Detect Visual Studio installation via vswhere
+REM 3. Detect Visual Studio installation via vswhere
+REM    Manifest dependencies are installed automatically by the vcpkg
+REM    CMake toolchain during configure, into build\vcpkg_installed\.
 set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
 if not exist "%VSWHERE%" (
     echo [ERROR] vswhere.exe not found. Install Visual Studio 2017 or newer.
@@ -86,7 +75,7 @@ if "%VS_GENERATOR%"=="" (
 echo [OK] Visual Studio detected: %VS_PATH% (v%VS_VERSION%)
 echo [OK] Using generator: %VS_GENERATOR%
 
-REM 5. Prefer the CMake bundled with the detected Visual Studio,
+REM 4. Prefer the CMake bundled with the detected Visual Studio,
 REM    because it always understands its own generator.
 set "CMAKE_EXE=%VS_PATH%\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"
 if not exist "%CMAKE_EXE%" (
@@ -94,9 +83,9 @@ if not exist "%CMAKE_EXE%" (
     set "CMAKE_EXE=cmake"
 )
 
-REM 6. Generate Visual Studio solution
-if not exist "%ROOT%\generated-vs" mkdir "%ROOT%\generated-vs"
-pushd "%ROOT%\generated-vs"
+REM 5. Generate Visual Studio solution (vcpkg toolchain auto-installs deps)
+if not exist "%ROOT%\build" mkdir "%ROOT%\build"
+pushd "%ROOT%\build"
 echo [INFO] Generating %VS_GENERATOR% solution (x64)...
 "%CMAKE_EXE%" .. -G "%VS_GENERATOR%" -A x64 ^
     -DCMAKE_TOOLCHAIN_FILE="%VCPKG_DIR%\scripts\buildsystems\vcpkg.cmake"
@@ -109,10 +98,10 @@ if errorlevel 1 (
 popd
 
 echo.
-echo [SUCCESS] Solution generated at generated-vs\
-echo  Open generated-vs\computer-graphic-2014.sln in Visual Studio,
+echo [SUCCESS] Solution generated under build\
+echo  Open the .sln / .slnx in build\ with Visual Studio,
 echo  or build from the command line:
-echo    "%CMAKE_EXE%" --build generated-vs --config Release
+echo    "%CMAKE_EXE%" --build build --config Release
 echo.
 pause
 endlocal
