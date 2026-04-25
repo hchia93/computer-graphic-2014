@@ -1,19 +1,12 @@
-cmake_minimum_required(VERSION 3.16)
-
-# Resolve vcpkg toolchain from VCPKG_ROOT (set globally on the machine).
-# generate.bat ensures VCPKG_ROOT points at a usable vcpkg before invoking CMake.
-if(NOT DEFINED CMAKE_TOOLCHAIN_FILE AND DEFINED ENV{VCPKG_ROOT})
-    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-        CACHE STRING "Vcpkg toolchain file")
-endif()
+cmake_minimum_required(VERSION 3.25)
 
 project(computer-graphic-2014 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# MSVC needs _USE_MATH_DEFINES to expose M_PI from <cmath>.
-# GLU is deprecated upstream but still required by the legacy code.
+# MSVC needs _USE_MATH_DEFINES to expose M_PI from <cmath>; the legacy
+# code also predates the deprecation noise around GLU.
 if(MSVC)
     add_compile_definitions(
         _USE_MATH_DEFINES
@@ -24,6 +17,8 @@ endif()
 
 find_package(FreeGLUT CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(SOURCES
     src/CGLabmain.cpp
@@ -45,20 +40,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     OpenGL::GLU
 )
 
-# Direct binary and PDB output to bin/Win64, regardless of build configuration.
-set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/bin/Win64")
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY         "${OUTPUT_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG   "${OUTPUT_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL     "${OUTPUT_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${OUTPUT_DIR}"
-    PDB_OUTPUT_DIRECTORY             "${OUTPUT_DIR}"
-    PDB_OUTPUT_DIRECTORY_DEBUG       "${OUTPUT_DIR}"
-    PDB_OUTPUT_DIRECTORY_RELEASE     "${OUTPUT_DIR}"
-)
-
 if(WIN32)
-    set_property(TARGET ${PROJECT_NAME} PROPERTY
-        VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
+    )
 endif()
